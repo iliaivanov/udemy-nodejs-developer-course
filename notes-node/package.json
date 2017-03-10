@@ -1,0 +1,16 @@
+{
+  "name": "notes-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Ilia I",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "nodemon": "^1.11.0",
+    "yargs": "^4.7.1"
+  }
+}
