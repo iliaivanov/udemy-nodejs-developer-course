@@ -3,21 +3,27 @@ const hbs = require('hbs');
 
 var app = express();
 
+hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
+
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear();
+});
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase();
+});
 
 app.get('/', (req, res) => {
     res.render('home', {
         pageTitle: 'Home page',
-        welcomeMessage: 'Hola bueno tere!',
-        currentYear: new Date().getFullYear()
+        welcomeMessage: 'Hola bueno tere!'
     });
 });
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        pageTitle: 'About page',
-        currentYear: new Date().getFullYear()
+        pageTitle: 'About page'
     });
 });
 
