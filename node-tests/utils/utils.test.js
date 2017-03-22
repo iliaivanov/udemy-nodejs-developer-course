@@ -7,10 +7,28 @@ it('should add two numbers', () => {
     expect(result).toBe(10, `Expected 10, but got ${result}`).toBeA('number');
 });
 
+// If use usual 'it' callback arrow functions test will always pass in case of
+// async function call with callback. This is happening because mocha is not
+// even waiting until asyncAdd callback will be called and assertion executed.
+// To prevent it need to use _done_ as an arrow func. argument.
+it('should async add two numbers', (done) => {
+    utils.asyncAdd(4, 5, (sum) => {
+        expect(sum).toBe(9).toBeA('number');
+        done();
+    });
+});
+
 it('should sqare a number', () => {
     var result = utils.square(5);
 
     expect(result).toBe(25, `Expected 25, but got ${result}`).toBeA('number');
+});
+
+it('should async sqare a number', (done) => {
+    utils.asyncSquare(11, (res) => {
+        expect(res).toBe(121).toBeA('number');
+        done();
+    });
 });
 
 it('set first and last names', () => {
