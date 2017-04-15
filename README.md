@@ -7,7 +7,12 @@ Udemy course sode stuff: https://www.udemy.com/the-complete-nodejs-developer-cou
 - [MongoDB GUI](https://robomongo.org/)
 
 ### Mongo
-Mongo ID contains dates! Like created: `result.ops[0]._id.getTimestamp()`
+Mongo ID contains dates! Like created: `result.ops[0]._id.getTimestamp()`   
+
+Update operators: https://docs.mongodb.com/manual/reference/operator/update/
+
+### Mongoose
+Docs: http://mongoosejs.com/docs/guide.html   
 
 #### Command executed form the mongo _bin_ folder:   
 - Start server: `./mongod --dbpath ~/Study/mongo-data/`   
