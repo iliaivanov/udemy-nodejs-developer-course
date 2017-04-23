@@ -58,6 +58,28 @@ UserSchema.methods.generateAuthToken = function () {
     });
 };
 
+// Model mehtod, not instance.
+UserSchema.statics.findByToken = function (token) {
+    let User = this,
+        decoded;
+
+    try {
+        decoded = jwt.verify(token, 'somesolt');
+    } catch (err) {
+        // return new Promise((resolve, reject) => {
+        //     reject();
+        // });
+        // or...
+        return Promise.reject();
+    }
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token, // dot notation for the nested data.
+        'tokens.access': 'auth',
+    });
+};
+
 let User = mongoose.model('User', UserSchema);
 
 module.exports = {User};

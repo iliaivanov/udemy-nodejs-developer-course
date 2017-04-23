@@ -7,7 +7,8 @@ const express = require('express'),
 
 let {mongoose} = require('./db/mongoose'),
     {User} = require('./models/user'),
-    {Todo} = require('./models/todo');
+    {Todo} = require('./models/todo'),
+    {authenticate} = require('./middleware/authenticate');
 
 let app = express();
 
@@ -109,6 +110,10 @@ app.post('/users', (req, res) => {
     .catch((err) => {
         res.status(400).send(err);
     });
+});
+
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
 });
 
 app.listen(port, () => {
