@@ -4,6 +4,7 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
+const {User} = require('./../models/user');
 
 const dummy = [{
     _id: new ObjectID(),
@@ -18,7 +19,12 @@ const dummy = [{
 beforeEach((done) => {
     Todo.remove({}).then(() => {
         return Todo.insertMany(dummy);
-    }).then(() => done()); // Wipe all Todos and add dummy data
+    })
+    .then(() => {
+        return User.remove({});
+    })
+    .then(() => done()); // Wipe all Todos and add dummy data
+
 });
 
 describe('POST /todos', () => {
@@ -197,6 +203,83 @@ describe('PATCH /todos/:id', () => {
         request(app)
             .patch('/todos/123')
             .expect(404)
+            .end(done);
+    });
+});
+
+describe('POST /users', () => {
+    it('should create user', (done) => {
+        let email = 'ilya.pskov@gmail.com';
+
+        request(app)
+            .post('/users')
+            .send({
+                email,
+                password: 'mysecurepass'
+            })
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.email).toBe(email);
+            })
+            .end(done);
+    });
+
+    it('should return 400 if email already exists', (done) => {
+        let email = 'ilya.pskov@gmail.com';
+
+        request(app)
+            .post('/users')
+            .send({
+                email,
+                password: 'mysecurepass'
+            })
+            .end(() => {
+                request(app)
+                    .post('/users')
+                    .send({
+                        email,
+                        password: 'mysecurepass'
+                    })
+                    .expect(400)
+                    .end(done);
+            });
+    });
+
+    it('should return 400 if no email passed', (done) => {
+        request(app)
+            .post('/users')
+            .send({password: 'mysecurepass'})
+            .expect(400)
+            .end(done);
+    });
+
+    it('should return 400 if no password passed', (done) => {
+        request(app)
+            .post('/users')
+            .send({email: 'ilya.pskov@gmail.com'})
+            .expect(400)
+            .end(done);
+    });
+
+    it('should return 400 if email is invalid', (done) => {
+        request(app)
+            .post('/users')
+            .send({
+                password: 'mysecurepass',
+                email: 'invalidemail'
+            })
+            .expect(400)
+            .end(done);
+    });
+
+    it('should return 400 if password is too short', (done) => {
+        request(app)
+            .post('/users')
+            .send({
+                password: 'O',
+                email: 'ilya.pskov@gmail.com'
+            })
+            .expect(400)
             .end(done);
     });
 });

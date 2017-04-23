@@ -37,7 +37,7 @@ app.get('/todos/:id', (req, res) => {
 
         res.send({todo});
     }, (err) => {
-        res.status(400).send();
+        res.status(400).send(err);
     });
 });
 
@@ -67,7 +67,7 @@ app.delete('/todos/:id', (req, res) => {
 
         res.send({todo});
     }, (err) => {
-        res.status(400).send();
+        res.status(400).send(err);
     });
 });
 
@@ -93,7 +93,21 @@ app.patch('/todos/:id', (req, res) => {
 
         res.send({todo});
     }).catch((err) => {
-        res.status(400).send();
+        res.status(400).send(err);
+    });
+});
+
+app.post('/users', (req, res) => {
+    let user = new User(_.pick(req.body, ['email', 'password']));
+
+    user.save().then(() => {
+        return user.generateAuthToken();
+    }).then((token) => {
+        // 'x-' prefix means the custom header.
+        res.header('x-auth', token).send(user);
+    })
+    .catch((err) => {
+        res.status(400).send(err);
     });
 });
 
