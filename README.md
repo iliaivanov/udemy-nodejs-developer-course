@@ -11,11 +11,16 @@ Mongo ID contains dates! Like created: `result.ops[0]._id.getTimestamp()`
 
 Update operators: https://docs.mongodb.com/manual/reference/operator/update/
 
-mLab mongodb hosting: https://mlab.com 
+mLab mongodb hosting: https://mlab.com
 
 ### Mongoose
 Docs: http://mongoosejs.com/docs/guide.html   
+Middleware: http://mongoosejs.com/docs/middleware.html
 
 #### Command executed form the mongo _bin_ folder:   
 - Start server: `./mongod --dbpath ~/Study/mongo-data/`   
 - Mongo CLI: `./mongo`   
+
+### Crypting
+Crypting passwords - https://www.npmjs.com/package/bcryptjs
+Tokens - https://www.npmjs.com/package/jsonwebtoken
