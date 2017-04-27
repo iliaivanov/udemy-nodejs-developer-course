@@ -7,6 +7,11 @@ const bcrypt = require('bcryptjs');
 // http://mongoosejs.com/docs/validation.html#custom-validators
 // http://mongoosejs.com/docs/api.html#schematype_SchemaType-validate
 
+/**
+ * UserSchema.methods - instance methods (.methods)
+ * UserSchema.statics - model methdos (.statics)
+ */
+
 let UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -56,6 +61,16 @@ UserSchema.methods.generateAuthToken = function () {
 
     return user.save().then(() => {
         return token;
+    });
+};
+
+UserSchema.methods.removeToken = function (token) {
+    let user = this;
+
+    return user.update({
+        $pull: {
+            tokens: {token}
+        }
     });
 };
 

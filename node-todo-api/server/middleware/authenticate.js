@@ -7,7 +7,7 @@ let authenticate = (req, res, next) => {
         if (!user) {
             return Promise.reject(); // don't responde - just use reject and go to catch!!!
         }
-
+console.log(user);
         req.user = user;
         req.token = token;
         next();
