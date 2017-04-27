@@ -24,3 +24,8 @@ Middleware: http://mongoosejs.com/docs/middleware.html
 ### Crypting
 Crypting passwords - https://www.npmjs.com/package/bcryptjs
 Tokens - https://www.npmjs.com/package/jsonwebtoken
+
+### Heroku
+`heroku config:get %VAR_NAME%`   
+`heroku config:set %VAR_NAME%=%VALUE%`   
+`heroku config:unset %VAR_NAME%`   
