@@ -29,3 +29,6 @@ Tokens - https://www.npmjs.com/package/jsonwebtoken
 `heroku config:get %VAR_NAME%`   
 `heroku config:set %VAR_NAME%=%VALUE%`   
 `heroku config:unset %VAR_NAME%`   
+
+### Node
+Node path https://nodejs.org/api/path.html
