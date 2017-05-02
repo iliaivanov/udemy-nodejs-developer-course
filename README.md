@@ -32,3 +32,4 @@ Tokens - https://www.npmjs.com/package/jsonwebtoken
 
 ### Node
 Node path https://nodejs.org/api/path.html
+Serving static stuff with express http://expressjs.com/ru/starter/static-files.html
