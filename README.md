@@ -33,3 +33,6 @@ Tokens - https://www.npmjs.com/package/jsonwebtoken
 ### Node
 Node path https://nodejs.org/api/path.html
 Serving static stuff with express http://expressjs.com/ru/starter/static-files.html
+
+### Socket.io
+Adding this libraru also automatically addes http://localhost:3000/socket.io/socket.io.js asset to the web app.
