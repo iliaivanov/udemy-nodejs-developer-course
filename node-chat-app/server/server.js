@@ -5,7 +5,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 const publicPath = path.join(__dirname, '/../public');
 const port = process.env.PORT;
 
@@ -23,9 +23,10 @@ io.on('connection', (socket) => {
      * io - can broadcast for all, not personally
      */
 
-    socket.emit('newMessage', generateMessage('admin', 'Welcome to the chat!'));
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat!'));
 
-    socket.broadcast.emit('newMessage', generateMessage('admin', 'New user joined'));
+    // socket.broadcast.emit - Broadcast to everybody but me.
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
     // callback is responsible for acknowledgement. 
     socket.on('createMessage', (newMessage, callback) => {
@@ -33,13 +34,10 @@ io.on('connection', (socket) => {
 
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
         callback('This is from the server');    
-        
-        // Broadcast to everybody but me.
-        // socket.broadcast.emit('newMessage', {
-        //     from: newMessage.from,
-        //     text: newMessage.text,
-        //     createdAt: new Date().getTime()
-        // });
+    });
+
+    socket.on('createLocationMessage', (location) => {
+        io.emit('newLocationMessage', generateLocationMessage('Admin', location.latitude, location.longitude));
     });
 
     socket.on('disconnect', () => {
