@@ -11,3 +11,10 @@ socket.on('disconnect', function () {
 socket.on('newMessage', function (message) {
     console.log('New message', message);
 });
+
+socket.emit('createMessage', {
+    from: 'Gleb',
+    text: 'Hi'
+}, function (data) { // acknowledgement - will be called after BE aknowledgement is done.
+    console.log(data);
+});
