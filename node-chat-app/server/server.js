@@ -49,15 +49,22 @@ io.on('connection', (socket) => {
 
     // callback is responsible for acknowledgement. 
     socket.on('createMessage', (newMessage, callback) => {
-        console.log('New message', newMessage);
+        let user = users.getUser(socket.id);
 
-        // TODO: validation
-        io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
-        callback();    
+        if (user && isRealString(newMessage.text)) {
+            io.to(user.room).emit('newMessage', generateMessage(user.name, newMessage.text));
+        }
+
+        callback();
     });
 
     socket.on('createLocationMessage', (location) => {
-        io.emit('newLocationMessage', generateLocationMessage('Admin', location.latitude, location.longitude));
+        let user = users.getUser(socket.id);
+
+        if (user) {
+            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, location.latitude, location.longitude));
+        }
+
     });
 
     socket.on('disconnect', () => {

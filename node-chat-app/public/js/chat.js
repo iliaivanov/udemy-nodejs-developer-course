@@ -84,7 +84,6 @@ $('#message-form').on('submit', function (e) {
     var $messageTextBox = $('#message-form > [name="message"]');
 
     socket.emit('createMessage', {
-        from: 'User',
         text: $messageTextBox.val()
     }, function (data) {
         // It is acknowledgement callback! This callback is called when acknowladgement is send from BE.
