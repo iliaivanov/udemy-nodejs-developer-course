@@ -34,5 +34,12 @@ Tokens - https://www.npmjs.com/package/jsonwebtoken
 Node path https://nodejs.org/api/path.html
 Serving static stuff with express http://expressjs.com/ru/starter/static-files.html
 
+* socket.emit - sends event only to current socket/user
+* socket.broadcast - sends event for all, but current socket/user
+* socket.join('%name%') - join particular "channel"
+* socket.broadcast.to('%name%').emit - send event to particular channel for all sockets connected, but except you
+* io - sends event for all connected sockets
+* io.broadcast.to('%name%').emit - send event to particular channel for all sockets connected
+
 ### Socket.io
 Adding this libraru also automatically addes http://localhost:3000/socket.io/socket.io.js asset to the web app.
