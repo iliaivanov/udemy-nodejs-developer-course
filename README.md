@@ -1,5 +1,10 @@
 # The Complete Node.js Developer Course   
 
+TODO:
+- lowercased room names
+- unique names
+- list chatrooms (dropdown on login form)
+
 Udemy course sode stuff: https://www.udemy.com/the-complete-nodejs-developer-course-2   
 
 ## MongoDB part
